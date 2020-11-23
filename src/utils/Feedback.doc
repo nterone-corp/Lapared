@@ -1,0 +1,133 @@
+1 No commentation above each module 
+2 Create a seperate file for navigation (Push / pop ) instaead of calling the same again and again witin component 
+
+ this.props.navigation.navigate('Story');
+
+use NavigationActions instead 
+
+src/Container/home/HomeScreen.js
+
+3 Redux is installed but some where it is used some where its not 
+
+ createPost() {
+    var apiRoot = getConfiguration('API_ROOT');
+
+    var acces_token = getConfiguration('Token');
+    // var customerid = getConfiguration('user_id');
+    // create api.
+    const api = create({
+      baseURL: apiRoot,
+      // headers: { 'Content-Type': 'multipart/form-data', },
+      headers: {
+        Authorization: 'Bearer ' + acces_token,
+        'Content-Type': 'multipart/form-data',
+      },
+    });
+
+    console.log('api>>>>>>>', api);
+
+    console.log('postContent', this.state.comment);
+    console.log('images>>>>>>>>', this.state.fileUri);
+    var photo = this.state.fileUri;
+    const data = new FormData();
+    data.append('post[content]', this.state.comment);
+    data.append('post[allow_comments]', 'true');
+    data.append('post[allow_share]', 'true');
+    data.append('post[tags_attributes]');
+    data.append('post[location_attributes]');
+    // data.append("post[media]",photo)
+    // if( photo != undefined){
+
+    //   data.append('post[media]', {
+    //   uri:
+    //   Platform.OS === 'android'
+    //   ? photo.uri
+    //   : photo.uri.replace('file://', ''),
+    //   type: 'image/jpeg',
+    //   name: 'image',
+    //   });
+    //   } else {
+    //   data.append('post[media]', "");
+    //   }
+
+    console.log('data>>>>', data);
+
+    // post your data.
+    api
+      .put('/user/posts/' + this.state.postId + '', data, {})
+      .then((res) => this.afterPost(res));
+  }
+
+  afterPost(res) {
+    console.log('upload post succes======', res);
+    console.log('response value createupdatepost --- ', res.data.message);
+    this.back();
+    {
+      res.data != null
+        ? // alert('hhhhhhh')
+          this.homeAPI()
+        : null;
+    }
+
+    {
+      res.data.message == undefined ? null : alert(res.data.message);
+    }
+  }
+  // Home Api
+  homeAPI() {
+    // setConfiguration('Token', '');
+    this.props
+      .getHomeAPI()
+      .then(() => this.afterCallingHomeAPI())
+      .catch((e) => this.showAlert(e.message, 300));
+  }
+
+
+
+4 Why you are writing api hiting axios code inside a component 
+ 
+5 Inline styling is used (Pleae create seperate spreadsheet for the same )
+
+6 All code is written in a single file no small reusable components are made
+
+7 image is requiring again and agian 
+src/Container/forgotpassword/checkyouremail.js
+
+8 No Static String file is used
+
+9 No binding a funcytion  is Done 
+
+10 Unecessary consoles within whole application
+
+11 No seperate files for keys AIzaSyCfdOfrQxKY6o4c89BNUawiAYPaa3QEeyY
+src/Container/Location/Location.js
+
+
+12 if you are using redux then why you are using AsyncStorage
+
+  storeData = async () => {
+    console.log('storedatataaa');
+    try {
+      //  const refreshtoken = getConfiguration('refreshtoken');
+      //  await AsyncStorage.setItem('refreshtoken', refreshtoken);
+
+      const Token = getConfiguration('Token');
+      await AsyncStorage.setItem('Token', Token);
+
+      console.log('success in storage');
+    } catch (e) {
+      // saving error
+      console.log('error in storage', e);
+    }
+  };
+
+
+
+Seems like some developer has started working on the project who dont have kn
+
+
+
+
+
+
+
